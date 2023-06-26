@@ -133,7 +133,7 @@ class ChatVertexAI(_VertexAICommon, BaseChatModel):
         else:
             chat = self.client.start_chat(**params)
         for pair in history.history:
-            chat._history.append((pair.question.content, pair.answer.content))
+            chat.message_history.append((pair.question.content, pair.answer.content))
         response = chat.send_message(question.content, **params)
         text = self._enforce_stop_words(response.text, stop)
         return ChatResult(generations=[ChatGeneration(message=AIMessage(content=text))])
